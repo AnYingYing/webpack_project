@@ -34,7 +34,7 @@ module.exports = {
     	filename:"view/index.html",
     	inject:true,
     	hash:true,
-    	trunks:['common','index']//需要打包的模块
+    	chunks:['common','index']//需要打包的模块
     }),
   ]
 };
