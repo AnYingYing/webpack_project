@@ -3,6 +3,16 @@ var webpack = require('webpack');
 var Ex = require('extract-text-webpack-plugin');//独立打包分离css
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+var loaderHtml = function(name) {
+	return {
+		template:"./src/view/"+ name +".html",
+    	filename:"view/"+ name +".html",
+    	inject:true,
+    	hash:true,
+    	chunks:['common',name]//需要打包的模块
+	}
+}
+
 module.exports = {
   entry: {
   	"common" : './src/page/common/index.js',//公共
@@ -29,12 +39,7 @@ module.exports = {
       filename: "js/base.js",
     }),
     new Ex("css/[name].css"),
-    new HtmlWebpackPlugin({
-    	template:"./src/view/index.html",
-    	filename:"view/index.html",
-    	inject:true,
-    	hash:true,
-    	chunks:['common','index']//需要打包的模块
-    }),
+    new HtmlWebpackPlugin(loaderHtml("index")),
+    new HtmlWebpackPlugin(loaderHtml("login")),
   ]
 };
